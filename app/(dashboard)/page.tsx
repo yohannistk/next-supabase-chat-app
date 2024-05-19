@@ -1,19 +1,33 @@
-import { Button } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/server";
-import { redirect } from "next/navigation";
+import { Button, buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
 
-export default async function Home() {
-  const supabase = createClient();
+interface Props {
+  searchParams: {
+    selected: boolean;
+  };
+}
 
-  const { data, error } = await supabase.auth.getUser();
-
-  if (error || !data?.user) {
-    redirect("/sign-in");
-  }
-  console.log(data.user);
+export default async function Home(props: Props) {
   return (
-    <div className="p-4">
-      <Button>Create Chat</Button>
+    <div className="h-full w-full bg-gray-100 flex items-center justify-center">
+      <div className="flex flex-col gap-3">
+        <Link
+          className={buttonVariants({
+            size: "lg",
+            className: "text-lg",
+          })}
+          href={{
+            protocol: "http",
+            pathname: "/",
+            query: {
+              selected: true,
+            },
+          }}
+        >
+          Empty Chat
+        </Link>
+        {JSON.stringify(props.searchParams)}
+      </div>
     </div>
   );
 }
