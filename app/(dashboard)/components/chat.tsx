@@ -6,14 +6,17 @@ import React from "react";
 const Chat = () => {
   return (
     <Link className="block" href={""}>
-      <div className="w-full flex gap-2 hover:bg-gray-100 hover:border-none transition rounded-md border-b p-2">
+      <div className="w-full flex gap-2 hover:bg-gray-100 transition rounded-md border-b p-2">
         <Avatar>
-          <AvatarImage className="bg-gray-300" src="/profile.png" />
+          <AvatarImage
+            className="bg-gray-300"
+            src={"https://avatar.iran.liara.run/public"}
+          />
           <AvatarFallback />
         </Avatar>
         <div className="flex-1 overflow-hidden">
           <div className="flex justify-between items-center gap-2">
-            <h2 className="text-md font-semibold text-gray-700">Chat Title</h2>
+            <h2 className="text-md font-semibold">Chat Title</h2>
             <span className="text-xs text-muted-foreground">30.22</span>
           </div>
           <div className="flex justify-between items-center gap-2">
@@ -21,7 +24,7 @@ const Chat = () => {
               last message placeholder last message placeholder last message
               placeholder
             </p>
-            <Badge>10</Badge>
+            <Badge className="bg-green-600 text-white">10</Badge>
           </div>
         </div>
       </div>

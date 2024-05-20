@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils";
 import Side from "./components/side";
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
-  // const supabase = createClient();
-  // const { data, error } = await supabase.auth.getUser();
-  // if (error || !data?.user) {
-  //   redirect("/sign-in");
-  // }
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect("/sign-in");
+  }
   return (
     <main className="h-full overflow-hidden flex">
       <Side

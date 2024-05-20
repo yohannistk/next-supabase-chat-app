@@ -6,11 +6,20 @@ import React from "react";
 const ChatDetailHeader = () => {
   return (
     <div className="py-1.5 px-4 flex justify-between border-b bg-white">
-      <div>
-        <Avatar>
-          <AvatarImage className="bg-gray-300" src="/profile.png" />
-          <AvatarFallback />
-        </Avatar>
+      <div className="flex gap-2">
+        <div className="flex gap-1">
+          <Avatar>
+            <AvatarImage
+              className="bg-gray-300"
+              src="https://avatar.iran.liara.run/public"
+            />
+            <AvatarFallback />
+          </Avatar>
+        </div>
+        <div className="flex flex-col">
+          <h3 className="font-extrabold text-md">Username</h3>
+          <span className="text-xs text-green-400">Active</span>
+        </div>
       </div>
       <div className="flex gap-2">
         <Button
