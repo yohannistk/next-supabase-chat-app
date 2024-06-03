@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { PropsWithChildren } from "react";
 import { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -20,12 +21,17 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body
-        className={cn("bg-background font-sans antialiased", fontSans.variable)}
-      >
-        <Toaster />
-        {children}
-      </body>
+      <ClerkProvider>
+        <body
+          className={cn(
+            "bg-background font-sans antialiased",
+            fontSans.variable
+          )}
+        >
+          <Toaster />
+          {children}
+        </body>
+      </ClerkProvider>
     </html>
   );
 }

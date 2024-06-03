@@ -1,14 +1,15 @@
-import { createClient } from "@/utils/supabase/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from "react";
 
-export default async function AuthRootLayout({ children }: PropsWithChildren) {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
-  console.log(data);
-  console.log(error);
-  if (data?.user) {
-    redirect("/");
-  }
-  return <main className="h-full">{children}</main>;
-}
+const AuthLayout = async (props: PropsWithChildren) => {
+  const user = await currentUser();
+  if (user) redirect("/");
+  return (
+    <div className="min-h-screen flex justify-center items-center">
+      {props.children}
+    </div>
+  );
+};
+
+export default AuthLayout;

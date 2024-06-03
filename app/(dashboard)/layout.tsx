@@ -1,15 +1,12 @@
-import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import { PropsWithChildren } from "react";
 import { cn } from "@/lib/utils";
 import Side from "./components/side";
+import { currentUser } from "@clerk/nextjs/server";
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
-    redirect("/sign-in");
-  }
+  const user = await currentUser();
+  if (!user) redirect("/sign-in");
   return (
     <main className="h-full overflow-hidden flex">
       <Side
