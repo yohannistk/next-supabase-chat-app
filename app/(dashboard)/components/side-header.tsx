@@ -1,20 +1,15 @@
 "use client";
-
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Menu, Search } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
+import { Search } from "lucide-react";
 import React from "react";
 
 const SideHeader = () => {
   return (
     <div className="p-1.5 border-b flex gap-2">
-      <Button
-        className="border-0 rounded-full"
-        size={"icon"}
-        variant={"outline"}
-      >
-        <Menu className="text-muted-foreground" />
-      </Button>
+      <div className="w-8 flex items-center">
+        <UserButton />
+      </div>
       <form className="flex flex-1">
         <div className="w-full  relative rounded-full border overflow-hidden">
           <Search

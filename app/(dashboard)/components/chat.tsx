@@ -1,11 +1,16 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Conversation } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 
-const Chat = () => {
+interface Props {
+  conversation: Conversation;
+}
+
+const Chat = ({ conversation }: Props) => {
   return (
-    <Link className="block" href={""}>
+    <Link className="block" href={`/chat/${conversation.id}`}>
       <div className="w-full flex gap-2 hover:bg-gray-100 transition rounded-md border-b p-2">
         <Avatar>
           <AvatarImage

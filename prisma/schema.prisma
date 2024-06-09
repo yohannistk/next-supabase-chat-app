@@ -28,16 +28,19 @@ model Conversation {
   user2Id   String
   user2     User      @relation("User2Conversations", fields: [user2Id], references: [id])
   createdAt DateTime  @default(now())
-  messages Message[]
+  messages Message[]  @relation("MessageList")
+  lastMessage           Message?     @relation("LastMessage",fields: [lastMessageId], references: [id])
+  lastMessageId         String? @unique
   updatedAt DateTime @updatedAt
   @@unique([user1Id, user2Id])
 }
 
 
  model Message {
-  id             Int       @id @default(autoincrement())
-  conversation   Conversation  @relation(fields: [conversationId], references: [id])
-  conversationId String
+  id             String       @id @default(cuid())
+  conversation   Conversation  @relation("MessageList",fields: [conversationId], references: [id])
+  conversationId String 
+  lastforConversation Conversation? @relation("LastMessage")
   sender         User      @relation("SentMessages", fields: [senderId], references: [id])
   senderId       String
   content        String

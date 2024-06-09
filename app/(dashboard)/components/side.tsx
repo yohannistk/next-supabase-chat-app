@@ -1,12 +1,22 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import ChatList from "./chat-list";
 import SideHeader from "./side-header";
+import { Conversation } from "@prisma/client";
 
-const Side = (props: React.HTMLAttributes<HTMLDivElement>) => {
+interface Props {
+  conversations: Conversation[];
+}
+
+type SideState = "list" | "search";
+
+const Side = (props: Props) => {
+  const [currentState, setCurrentState] = useState<SideState>("list");
   return (
-    <div {...props}>
+    <div className="w-full flex flex-col md:w-96 border h-full overflow-hidden">
       <SideHeader />
-      <ChatList />
+      <ChatList conversations={props.conversations} />
     </div>
   );
 };
