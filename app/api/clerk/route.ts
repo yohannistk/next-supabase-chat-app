@@ -49,9 +49,11 @@ export async function POST(req: Request) {
     });
   }
 
-  // Get the ID and type
   const { id } = evt.data;
   const eventType = evt.type;
+  //   const primaryEmail = evt.data.email_addresses.find(
+  //     (e: any) => e.id === evt.data.primary_email_address_id
+  //   ).email;
 
   switch (eventType) {
     case "user.created":
@@ -59,12 +61,13 @@ export async function POST(req: Request) {
       await prisma.user.create({
         data: {
           clerkId: id!,
+          imageUrl: evt.data.image_url,
+          userName: evt.data.username!,
           email: evt.data.email_addresses[0].email_address,
         },
       });
       return new Response("", { status: 201 });
     case "user.deleted":
-      console.log(eventType);
       await prisma.user.delete({
         where: {
           clerkId: id!,

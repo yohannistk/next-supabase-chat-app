@@ -10,9 +10,7 @@ interface Props {
 export default async function Home(props: Props) {
   return (
     <div className="h-full w-full bg-gray-100 flex items-center justify-center">
-      <div className="flex flex-col gap-3">
-        {JSON.stringify(props.searchParams)}
-      </div>
+      <div className="flex flex-col gap-3"></div>
     </div>
   );
 }

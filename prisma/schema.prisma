@@ -10,7 +10,9 @@ datasource db {
 model User {
   id            String          @id @default(cuid())
   clerkId       String @unique
-  email         String          @unique
+  email         String @unique
+  userName  String
+  imageUrl String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   sentMessages    Message[] @relation("SentMessages")

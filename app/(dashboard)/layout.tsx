@@ -9,6 +9,10 @@ import prisma from "@/lib/db";
 const loadConversations = async (userId: string): Promise<Conversation[]> => {
   const conversations = await prisma.conversation.findMany({
     where: { OR: [{ user1Id: userId }, { user2Id: userId }] },
+    include: {
+      user1: true,
+      user2: true,
+    },
   });
   return conversations;
 };
