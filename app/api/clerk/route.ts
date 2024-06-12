@@ -1,6 +1,6 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { WebhookEvent } from "@clerk/nextjs/server";
+import { UserJSON, WebhookEvent } from "@clerk/nextjs/server";
 import prisma from "@/lib/db";
 
 export async function POST(req: Request) {
@@ -49,21 +49,30 @@ export async function POST(req: Request) {
     });
   }
 
-  const { id } = evt.data;
+  const { id, ...attributes } = evt.data;
+  console.log(attributes);
   const eventType = evt.type;
-  //   const primaryEmail = evt.data.email_addresses.find(
-  //     (e: any) => e.id === evt.data.primary_email_address_id
-  //   ).email;
 
   switch (eventType) {
     case "user.created":
-      console.log(eventType);
+      const {
+        id,
+        image_url,
+        username,
+        email_addresses,
+        first_name,
+        last_name,
+      }: UserJSON = evt.data;
       await prisma.user.create({
         data: {
-          clerkId: id!,
-          imageUrl: evt.data.image_url,
-          userName: evt.data.username!,
-          email: evt.data.email_addresses[0].email_address,
+          clerkId: id,
+          firstName: first_name!,
+          lastName: last_name!,
+          imageUrl: image_url,
+          userName: username!,
+          email: email_addresses.find(
+            (e: any) => e.id === evt.data.primary_email_address_id
+          )!.email_address,
         },
       });
       return new Response("", { status: 201 });
